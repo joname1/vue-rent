@@ -65,7 +65,7 @@
        <tab v-model="index">
         <tab-item class="vux-center" v-for="(item, index) in list" :key="index">{{item}}</tab-item>
       </tab>
-          
+
             <div style="margin: 10px;overflow: hidden;" v-for="item in recommand_list" v-show="index==0" @click="details(item.house_id)">
                 <masker style="border-radius: 2px;">
                     <div class="m-img" :style="{backgroundImage: 'url(' + item.house_pic + ')'}"></div>
@@ -86,6 +86,7 @@
 import axios from 'axios'
 import Search from '@/pages/search'
 import Location from '@/pages/location'
+import { homeURL } from '@/api/home'
 import { Tab,TabItem,Swiper,SwiperItem,Masker,Scroller,Flexbox,FlexboxItem } from 'vux'
 const list = () => ['房屋推荐', '托管出租']
 
@@ -106,7 +107,7 @@ export default {
     },
     methods: {
         _getrecommand(){
-            axios.get('http://app.mxzlw.cn/qiu/page/main.php?showRented=0').then((res) => {
+            axios.get(homeURL).then((res) => {
                 this.banner_list = res.data.msg.banner
                 this.recommand_list = res.data.msg.house
             })
