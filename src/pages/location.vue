@@ -83,7 +83,7 @@
 <style lang="less">
     .choice{
         font-size: 11px;
-        padding: 13px;
+        padding: 12px;
         border-right: solid 1px #e5e5e5;
         border-bottom: solid 1px #efeff4;
         background: #efeff4;
