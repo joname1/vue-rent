@@ -1,6 +1,6 @@
 <template>
   <div>
-    <search placeholder="请输入区域或商圈" v-model="value" />
+    <van-search placeholder="请输入区域或商圈" v-model="value" />
     <!-- <search @on-submit="onSubmit" :auto-fixed="autoFixed" @on-focus="onFocus" @on-cancel="onCancel"></search> -->
   </div>
 </template>
@@ -10,7 +10,7 @@
 import { Search } from 'vant'
 export default {
   components: {
-    Search
+    [Search.name]:Search
   },
   methods: {
     // resultClick (item) {

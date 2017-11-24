@@ -2,11 +2,16 @@
     <div class="home">
         <Location></Location>
         <Search></Search>
-        <swiper loop auto :aspect-ratio="248/621">
+        <van-swipe :autoplay="3000">
+            <van-swipe-item class="swiper_img" v-for="(item,index) in banner_list" :key="index">
+                <img :src="item.banner_pic">
+            </van-swipe-item>
+        </van-swipe>
+        <!-- <swiper loop auto :aspect-ratio="248/621">
             <swiper-item class="swiper_img" v-for="(item,index) in banner_list" :key="index">
                 <img :src="item.banner_pic">
             </swiper-item>
-        </swiper>
+        </swiper> -->
         <div class="mod-con0">
             <div class="mod-in">
                 <div class="mod-nav0 mod-nav0-col4">
@@ -61,10 +66,15 @@
                 </div>
             </div>
         </div>
-    <div style="margin-bottom: 50px;">
-       <tab v-model="index">
-        <tab-item class="vux-center" v-for="(item, index) in list" :key="index">{{item}}</tab-item>
-      </tab>
+        <div style="margin-bottom: 50px;">
+            <van-tabs :active="active">
+                <van-tab v-for="index in 2" :title="'测试'+ index" :key="index">
+                    内容 {{ index }}
+                </van-tab>
+            </van-tabs>
+            <!-- <tab v-model="index">
+                <tab-item class="vux-center" v-for="(item, index) in list" :key="index">{{item}}</tab-item>
+            </tab>
 
             <div style="margin: 10px;overflow: hidden;" v-for="item in recommand_list" v-show="index==0" @click="details(item.house_id)">
                 <masker style="border-radius: 2px;">
@@ -75,29 +85,35 @@
                     </div>
                 </masker>
             </div>
-        <div v-show="index==1">
-          <div class="tab-swiper vux-center">暂无数据</div>
-        </div>
 
-    </div>
+            <div v-show="index==1">
+                <div class="tab-swiper vux-center">暂无数据</div>
+            </div> -->
+        </div>
     </div>
 </template>
 <script>
 import axios from 'axios'
 import Search from '@/pages/search'
 import Location from '@/pages/location'
-import { homeURL } from '@/api/home'
-import { Tab,TabItem,Swiper,SwiperItem,Masker,Scroller,Flexbox,FlexboxItem } from 'vux'
-const list = () => ['房屋推荐', '托管出租']
+import {homeURL} from '@/api/home'
+//import {Tab,TabItem,Swiper,SwiperItem,Masker,Scroller,Flexbox,FlexboxItem} from 'vux'
+import { Tab, Tabs, Swipe, SwipeItem } from 'vant';
+const list = () => "房屋推荐,托管出租"
 
 export default {
     components: {
-        Search,Location,Tab,TabItem,Swiper,SwiperItem,Masker,Scroller,Flexbox,FlexboxItem
+        Search,Location,
+        //Tab,TabItem,Swiper,SwiperItem,Masker,Scroller,Flexbox,FlexboxItem
+        [Tab.name]: Tab,
+        [Tabs.name]: Tabs,
+        [Swipe.name]: Swipe,
+        [SwipeItem.name]: SwipeItem
     },
     data() {
         return {
-            index: 0,
-            list: list(),
+            active: 0,
+            tlist: list(),
             recommand_list: [],
             banner_list: []
         }
@@ -106,22 +122,25 @@ export default {
         this._getrecommand();
     },
     methods: {
-        _getrecommand(){
+        _getrecommand() {
             axios.get(homeURL).then((res) => {
                 this.banner_list = res.data.msg.banner
                 this.recommand_list = res.data.msg.house
+                //console.log(this.banner_list)
             })
         },
-        details(id){
-            this.$router.push('/houseDetails?id='+id)
+        details(id) {
+            this.$router.push('/houseDetails?id=' + id)
         }
     }
 }
 </script>
 <style lang="less" scoped>
 .swiper_img img {
-  width: 100%;
+    width: 100%;
+    height: 168px;
 }
+
 .flex-demo {
     text-align: center;
     color: black;
@@ -226,35 +245,38 @@ export default {
 .weui-cell__ft {
     color: #0080fc;
 }
+
 .m-img {
-  padding-bottom: 33%;
-  display: block;
-  position: relative;
-  max-width: 100%;
-  background-size: cover;
-  background-position: center center;
-  cursor: pointer;
-  border-radius: 2px;
+    padding-bottom: 33%;
+    display: block;
+    position: relative;
+    max-width: 100%;
+    background-size: cover;
+    background-position: center center;
+    cursor: pointer;
+    border-radius: 2px;
 }
+
 .m-title {
-  color: #fff;
-  text-align: center;
-  text-shadow: 0 0 2px rgba(0, 0, 0, .5);
-  font-weight: 500;
-  font-size: 16px;
-  position: absolute;
-  left: 0;
-  right: 0;
-  width: 100%;
-  text-align: center;
-  top: 50%;
-  transform: translateY(-50%);
+    color: #fff;
+    text-align: center;
+    text-shadow: 0 0 2px rgba(0, 0, 0, .5);
+    font-weight: 500;
+    font-size: 16px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 100%;
+    text-align: center;
+    top: 50%;
+    transform: translateY(-50%);
 }
+
 .m-time {
-  font-size: 12px;
-  padding-top: 4px;
-  border-top: 1px solid #f0f0f0;
-  display: inline-block;
-  margin-top: 5px;
+    font-size: 12px;
+    padding-top: 4px;
+    border-top: 1px solid #f0f0f0;
+    display: inline-block;
+    margin-top: 5px;
 }
 </style>
