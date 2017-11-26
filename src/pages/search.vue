@@ -1,39 +1,37 @@
 <template>
   <div>
-    <van-search placeholder="请输入区域或商圈" v-model="value" />
-    <!-- <search @on-submit="onSubmit" :auto-fixed="autoFixed" @on-focus="onFocus" @on-cancel="onCancel"></search> -->
+    <search @on-submit="onSubmit" :auto-fixed="autoFixed" @on-focus="onFocus" @on-cancel="onCancel"></search>
   </div>
 </template>
 
 <script>
-//import { Search, Divider } from 'vux'
-import { Search } from 'vant'
+import { Search, Divider } from 'vux'
 export default {
   components: {
-    [Search.name]:Search
+    Search
   },
   methods: {
-    // resultClick (item) {
-    //   console.log('you click the result item: ' + JSON.stringify(item))
-    // },
-    // getResult (val) {
-    //   this.results = val ? getResult(this.value) : []
-    // },
-    // onSubmit (val) {
-    //   //console.log('on submit' + val)
-    // },
-    // onCancel () {
-    //   //console.log('on cancel')
-    // },
-    // onFocus () {
-    //   //console.log('on focus')
-    // }
+    resultClick (item) {
+      //console.log('you click the result item: ' + JSON.stringify(item))
+    },
+    getResult (val) {
+      this.results = val ? getResult(this.value) : []
+    },
+    onSubmit (val) {
+      //console.log('on submit' + val)
+    },
+    onCancel () {
+      //console.log('on cancel')
+    },
+    onFocus () {
+      //console.log('on focus')
+    }
   },
   data () {
     return {
-      //results: [],
-      //autoFixed: false,
-      value: '',
+      results: [],
+      autoFixed: false,
+      value: ''
     }
   }
 }

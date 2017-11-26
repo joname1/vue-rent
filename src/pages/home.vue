@@ -2,16 +2,11 @@
     <div class="home">
         <Location></Location>
         <Search></Search>
-        <van-swipe :autoplay="3000">
-            <van-swipe-item class="swiper_img" v-for="(item,index) in banner_list" :key="index">
-                <img :src="item.banner_pic">
-            </van-swipe-item>
-        </van-swipe>
-        <!-- <swiper loop auto :aspect-ratio="248/621">
+        <swiper loop auto :aspect-ratio="248/621">
             <swiper-item class="swiper_img" v-for="(item,index) in banner_list" :key="index">
                 <img :src="item.banner_pic">
             </swiper-item>
-        </swiper> -->
+        </swiper>
         <div class="mod-con0">
             <div class="mod-in">
                 <div class="mod-nav0 mod-nav0-col4">
@@ -67,12 +62,7 @@
             </div>
         </div>
         <div style="margin-bottom: 50px;">
-            <van-tabs :active="active">
-                <van-tab v-for="index in 2" :title="'测试'+ index" :key="index">
-                    内容 {{ index }}
-                </van-tab>
-            </van-tabs>
-            <!-- <tab v-model="index">
+            <tab v-model="index">
                 <tab-item class="vux-center" v-for="(item, index) in list" :key="index">{{item}}</tab-item>
             </tab>
 
@@ -88,7 +78,7 @@
 
             <div v-show="index==1">
                 <div class="tab-swiper vux-center">暂无数据</div>
-            </div> -->
+            </div>
         </div>
     </div>
 </template>
@@ -97,23 +87,17 @@ import axios from 'axios'
 import Search from '@/pages/search'
 import Location from '@/pages/location'
 import {homeURL} from '@/api/home'
-//import {Tab,TabItem,Swiper,SwiperItem,Masker,Scroller,Flexbox,FlexboxItem} from 'vux'
-import { Tab, Tabs, Swipe, SwipeItem } from 'vant';
-const list = () => "房屋推荐,托管出租"
+import {Tab,TabItem,Swiper,SwiperItem,Masker,Scroller,Flexbox,FlexboxItem} from 'vux'
+const list = () => ["房屋推荐","托管出租"]
 
 export default {
     components: {
-        Search,Location,
-        //Tab,TabItem,Swiper,SwiperItem,Masker,Scroller,Flexbox,FlexboxItem
-        [Tab.name]: Tab,
-        [Tabs.name]: Tabs,
-        [Swipe.name]: Swipe,
-        [SwipeItem.name]: SwipeItem
+        Search,Location,Tab,TabItem,Swiper,SwiperItem,Masker,Scroller,Flexbox,FlexboxItem
     },
     data() {
         return {
-            active: 0,
-            tlist: list(),
+            index: 0,
+            list: list(),
             recommand_list: [],
             banner_list: []
         }
